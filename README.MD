@@ -48,8 +48,8 @@ location / {
 
 ## 说明
 
-![index接口] (https://github.com/WiconWang/daisy_platform/blob/master/public/readme/index.png)；
-![Admin接口] (https://github.com/WiconWang/daisy_platform/blob/master/public/readme/admin.png)；
+![index接口](https://raw.githubusercontent.com/WiconWang/daisy_platform/master/public/readme/index.png) 
+![Admin接口](https://raw.githubusercontent.com/WiconWang/daisy_platform/master/public/readme/admin.png) 
 
         
       
