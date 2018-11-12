@@ -43,6 +43,14 @@ location / {
 > ResponseHelper::ReturnCode("UPGRADE_REQUIRED")  
 
 以下方法返回文本:    
-> 
-ResponseHelper::ReturnInfo("UPGRADE_REQUIRED")
+> ResponseHelper::ReturnInfo("UPGRADE_REQUIRED")
+
+
+## 说明
+
+![index接口] (https://github.com/WiconWang/daisy_platform/blob/master/public/readme/index.png)；
+![Admin接口] (https://github.com/WiconWang/daisy_platform/blob/master/public/readme/admin.png)；
+
+        
+      
  
