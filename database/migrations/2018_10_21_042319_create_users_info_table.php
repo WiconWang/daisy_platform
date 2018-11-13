@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserInfoTable extends Migration
+class CreateUsersInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateUserInfoTable extends Migration
      */
     public function up()
     {
-        $tableName = 'user_info';
+        $tableName = 'users_info';
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',22)->nullable(false)->default('')->unique()->comment('用户手机号');
@@ -38,6 +38,6 @@ class CreateUserInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_info');
+        Schema::dropIfExists('users_info');
     }
 }

@@ -78,4 +78,23 @@ trait ResponseHelper
         exit;
     }
 
+
+    /**
+     * 标准 JSON 输出
+     *
+     * @param $returnName
+     * @param string $msg
+     * @param array $data
+     */
+    public function responseDefaultJson($bool)
+    {
+        header('Content-type:text/json');
+        $returnName = $bool?'SUCCESS':'ERROR';
+        echo response()->json(
+            $this->getStandardResult($returnName),
+            200
+        )->content();
+        exit;
+    }
+
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleExtendTable extends Migration
+class CreateArticlesExtendTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateArticleExtendTable extends Migration
      */
     public function up()
     {
-        $tableName = 'article_extend';
+        $tableName = 'articles_extend';
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('aid')->unsigned()->nullable(false)->default(0)->comment('文章ID');
@@ -31,6 +31,6 @@ class CreateArticleExtendTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_extend');
+        Schema::dropIfExists('articles_extend');
     }
 }

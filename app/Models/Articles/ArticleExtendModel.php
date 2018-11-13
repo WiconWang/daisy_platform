@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Article;
+namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ArticleExtendModel extends Model
 {
-    protected $table = 'article_extend';
+    protected $table = 'articles_extend';
     protected $fillable = ['aid', 'content'];
 
 }

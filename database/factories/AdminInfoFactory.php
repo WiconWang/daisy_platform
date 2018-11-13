@@ -1,7 +1,7 @@
 <?php
 
-$factory->define(App\Models\Admin\InfoModel::class, function () {
-    $faker = \Faker\Factory::create('zh_CN');
+$faker = Faker\Factory::create('zh_CN');
+$factory->define(App\Models\Admins\InfoModel::class,function () use ($faker) {
     return [
         'mobile' => $faker->phoneNumber,
         'password' => bcrypt(123456),

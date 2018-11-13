@@ -23,3 +23,8 @@ Route::group(['middleware' => 'auth:admin','namespace' => 'Article'], function (
 });
 
 
+
+Route::group(['middleware' => 'auth:admin','namespace' => 'Channel'], function () {
+    Route::resource('channel', 'IndexController');
+});
+

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\v1\Article;
 
-use App\Models\Article\ArticleExtendModel;
+use App\Models\Articles\ArticleExtendModel;
 use App\Utilities\PageHelper;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Article\ArticleModel;
+use App\Models\Articles\ArticleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 

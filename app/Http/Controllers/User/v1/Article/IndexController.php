@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\User\v1\Article;
 
-use App\Models\Article\ArticleExtendModel;
-use App\Models\User\InfoModel as UserInfoModel;
+use App\Models\Articles\ArticleExtendModel;
+use App\Models\Users\InfoModel as UserInfoModel;
 use App\Utilities\PageHelper;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Article\ArticleModel;
+use App\Models\Articles\ArticleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 

@@ -1,10 +1,10 @@
 <?php
-// php artisan make:migration create_admin_info_table  --create=admin_info
+// php artisan make:migration create_admins_info_table  --create=admins_info
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminInfoTable extends Migration
+class CreateAdminsInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAdminInfoTable extends Migration
      */
     public function up()
     {
-        $tableName = 'admin_info';
+        $tableName = 'admins_info';
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',22)->nullable(false)->default('')->unique()->comment('用户手机号');
@@ -37,6 +37,6 @@ class CreateAdminInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_info');
+        Schema::dropIfExists('admins_info');
     }
 }

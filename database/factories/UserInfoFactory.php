@@ -1,8 +1,9 @@
 <?php
+$faker = Faker\Factory::create('zh_CN');
 
-//use Faker\Generator as Faker;
-$factory->define(App\Models\User\InfoModel::class, function () {
-    $faker = \Faker\Factory::create('zh_CN');
+$factory->define(App\Models\Users\InfoModel::class, function () use ($faker) {
+//$factory->define(App\Models\User\InfoModel::class, function () {
+//    $faker = \Faker\Factory::create('zh_CN');
     return [
         'mobile' => $faker->phoneNumber,
         'password' => bcrypt(123456),

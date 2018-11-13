@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User\v1\Login;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User\InfoModel as UserInfoModel;
+use App\Models\Users\InfoModel as UserInfoModel;
 
 class IndexController extends Controller
 {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\v1\Login;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\InfoModel as AdminInfoModel;
+use App\Models\Admins\InfoModel as AdminInfoModel;
 
 class IndexController extends Controller
 {

@@ -1,15 +1,15 @@
 <?php
 
-$factory->define(App\Models\Article\ArticleModel::class, function () {
-    $faker = \Faker\Factory::create('zh_CN');
+$faker = Faker\Factory::create('zh_CN');
+$factory->define(App\Models\Articles\ArticleModel::class, function () use ($faker) {
     return [
-        'cid'         => 1,
+        'cid'         => $faker->numberBetween($min = 1, $max = 8),
         'status'      => $faker->numberBetween($min = 0, $max = 1),
         'flag'        => '',
-        'title'       => $faker->sentence,
-        'short_title' => $faker->word,
-        'description' => $faker->paragraph,
-        'keyword'     => $faker->word,
+        'title'       => $faker->catchPhrase,
+        'short_title' => $faker->ColorName,
+        'description' => $faker->catchPhrase,
+        'keyword'     => $faker->ColorName,
         'author_id'   => $faker->numberBetween($min = 0, $max = 5),
         'author_name' => $faker->name,
         'author_site' => $faker->numberBetween($min = 0, $max = 1),

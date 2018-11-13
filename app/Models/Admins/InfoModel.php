@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models\Admins;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +11,6 @@ class InfoModel extends Authenticatable
     use Notifiable, HasMultiAuthApiTokens;
 
 //    protected $connection = 'mysql_admin';
-    protected $table = 'admin_info';
+    protected $table = 'admins_info';
     public $timestamps = false;
 }

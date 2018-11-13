@@ -1,7 +1,7 @@
 <?php
 //php artisan make:seeder AdminInfoSeeder
 use Illuminate\Database\Seeder;
-use App\Models\Admin\InfoModel as Models;
+use App\Models\Admins\InfoModel as Models;
 
 class AdminInfoSeeder extends Seeder
 {
@@ -14,6 +14,14 @@ class AdminInfoSeeder extends Seeder
     public function run()
     {
         Models::truncate();
-        factory(Models::class, 50)->create();
+        Models::create([
+            'mobile' => '18000000000',
+            'password' => bcrypt(123456),
+            'username' => '超级管理员',
+            'email' => 'email@email.com',
+            'level' => 1,
+            'status' => 0
+        ]);
+        factory(Models::class, 10)->create();
     }
 }

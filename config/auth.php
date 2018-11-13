@@ -80,12 +80,12 @@ return [
 //        ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin\InfoModel::class,
+            'model' => App\Models\Admins\InfoModel::class,
         ],
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User\InfoModel::class,
+            'model' => App\Models\Users\InfoModel::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

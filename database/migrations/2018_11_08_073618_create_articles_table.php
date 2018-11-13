@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateArticleTable extends Migration
      */
     public function up()
     {
-        $tableName = 'article';
+        $tableName = 'articles';
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('cid')->unsigned()->nullable(false)->default(0)->comment('文章所属频道');
@@ -40,6 +40,6 @@ class CreateArticleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article');
+        Schema::dropIfExists('articles');
     }
 }

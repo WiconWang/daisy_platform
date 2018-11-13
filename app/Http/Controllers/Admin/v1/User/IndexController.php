@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\v1\User;
 use App\Utilities\PageHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User\InfoModel as UserInfoModel;
+use App\Models\Users\InfoModel as UserInfoModel;
 
 class IndexController extends Controller
 {

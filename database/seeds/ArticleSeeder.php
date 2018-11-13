@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Article\ArticleModel;
-use App\Models\Article\ArticleExtendModel;
+use App\Models\Articles\ArticleModel;
+use App\Models\Articles\ArticleExtendModel;
 
 class ArticleSeeder extends Seeder
 {
@@ -14,8 +14,14 @@ class ArticleSeeder extends Seeder
     public function run()
     {
         ArticleModel::truncate();
-        factory(ArticleModel::class, 50)->create();
         ArticleExtendModel::truncate();
-        factory(ArticleExtendModel::class, 50)->create();
+        //生成文章
+        factory(ArticleModel::class, 50)
+            ->create()
+            ->map(function ($article) {
+                //同时生成一篇关联的文章正文
+                factory(ArticleExtendModel::class, 1)
+                    ->create([ 'aid' => $article->id ]);
+            });
     }
 }

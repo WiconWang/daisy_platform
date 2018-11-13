@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Article;
+namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ArticleModel extends Model
 {
-    protected $table = 'article';
+    protected $table = 'articles';
     protected $fillable = ['cid', 'status', 'flag', 'title', 'short_title', 'description', 'keyword', 'author_id', 'author_name', 'author_site', 'weight'];
 
 
