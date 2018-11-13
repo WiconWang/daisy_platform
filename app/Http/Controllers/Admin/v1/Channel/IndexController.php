@@ -18,7 +18,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/channel",
+     *   path="/channels",
      *   tags={"频道"},
      *   summary="频道列表",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -64,7 +64,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/channel",
+     *   path="/channels",
      *   tags={"频道"},
      *   summary="频道列表",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -109,7 +109,7 @@ class IndexController extends Controller
      * Display the specified resource.
      *
      * @OA\Get(
-     *   path="/channel/{id}",
+     *   path="/channels/{id}",
      *   tags={"频道"},
      *   summary="取得指定id的频道",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -156,7 +156,7 @@ class IndexController extends Controller
      * PUT 完整/PATCH 部分    /posts/{post}    update    posts.update
      *
      * @OA\Put(
-     *   path="/channel/{id}",
+     *   path="/channels/{id}",
      *   tags={"频道"},
      *   summary="更新指定id的频道",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -200,7 +200,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Delete(
-     *   path="/channel/{id}",
+     *   path="/channels/{id}",
      *   tags={"频道"},
      *   summary="删除指定id的频道",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),

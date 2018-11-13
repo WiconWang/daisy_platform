@@ -23,7 +23,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/article",
+     *   path="/articles",
      *   tags={"文章"},
      *   summary="文章列表",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -78,7 +78,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/article",
+     *   path="/articles",
      *   tags={"文章"},
      *   summary="添加新文章",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -150,7 +150,7 @@ class IndexController extends Controller
      * Display the specified resource.
      *
      * @OA\Get(
-     *   path="/article/{id}",
+     *   path="/articles/{id}",
      *   tags={"文章"},
      *   summary="取得指定id的文章",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -201,7 +201,7 @@ class IndexController extends Controller
      * PUT 完整/PATCH 部分    /posts/{post}    update    posts.update
      *
      * @OA\Put(
-     *   path="/article/{id}",
+     *   path="/articles/{id}",
      *   tags={"文章"},
      *   summary="更新指定id的文章",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -273,7 +273,7 @@ class IndexController extends Controller
      * DELETE    /posts/{post}    destroy    posts.destroy
      *
      * @OA\Delete(
-     *   path="/article/{id}",
+     *   path="/articles/{id}",
      *   tags={"文章"},
      *   summary="删除指定id的文章",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),

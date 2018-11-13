@@ -12,7 +12,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/user/info",
+     *   path="/users/info",
      *   tags={"用户"},
      *   summary="用户清单",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -66,7 +66,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/user/info",
+     *   path="/users/info",
      *   tags={"用户"},
      *   summary="添加新用户",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -139,7 +139,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/user/info/{id}",
+     *   path="/users/info/{id}",
      *   tags={"用户"},
      *   summary="取用户信息",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -183,7 +183,7 @@ class IndexController extends Controller
 
     /**
      * @OA\Put(
-     *   path="/user/info/{id}",
+     *   path="/users/info/{id}",
      *   tags={"用户"},
      *   summary="修改描写用户",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -266,7 +266,7 @@ class IndexController extends Controller
     /**
      *
      * @OA\Delete(
-     *   path="/user/info/{id}",
+     *   path="/users/info/{id}",
      *   tags={"用户"},
      *   summary="删除用户",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
@@ -300,7 +300,7 @@ class IndexController extends Controller
     /**
      *
      * @OA\Patch(
-     *   path="/user/info/{id}",
+     *   path="/users/info/{id}",
      *   tags={"用户"},
      *   summary="更新用户状态",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
