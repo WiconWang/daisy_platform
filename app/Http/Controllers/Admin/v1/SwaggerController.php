@@ -9,7 +9,7 @@
 
  *     @OA\Server(
  *         description="OpenApi host",
- *         url="http://www.visithenan.cn:89/admin/v1"
+ *         url="http://www.daisy.com/admin/v1"
  *     ),
  * )
  */
