@@ -13,18 +13,18 @@ Route::group(['middleware' => 'auth:admin','namespace' => 'Login'], function () 
 
 
 
-Route::group(['middleware' => 'auth:admin','namespace' => 'User', "prefix" => 'user'], function () {
+Route::group(['middleware' => 'auth:admin','namespace' => 'User', "prefix" => 'users'], function () {
     Route::resource('info', 'IndexController');
     Route::patch('status/{id}', 'IndexController@status')->name('status')->where('id','[0-9]+');
 });
 
 Route::group(['middleware' => 'auth:admin','namespace' => 'Article'], function () {
-    Route::resource('article', 'IndexController');
+    Route::resource('articles', 'IndexController');
 });
 
 
 
 Route::group(['middleware' => 'auth:admin','namespace' => 'Channel'], function () {
-    Route::resource('channel', 'IndexController');
+    Route::resource('channels', 'IndexController');
 });
 

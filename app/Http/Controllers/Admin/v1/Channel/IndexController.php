@@ -5,9 +5,16 @@ namespace App\Http\Controllers\Admin\v1\Channel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Channels\InfoModel as ChannelModel;
+use App\Services\ChannelService;
 
 class IndexController extends Controller
 {
+    protected $channelService;
+
+    public function __construct(ChannelService $channelService)
+    {
+        $this->channelService = $channelService;
+    }
 
     /**
      * @OA\Get(
@@ -35,9 +42,9 @@ class IndexController extends Controller
      * @param Request $request
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $this->channelService->getAll();
     }
 
     /**

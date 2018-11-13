@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth:user','namespace' => 'Login'], function () {
 
 
 Route::group(['middleware' => 'auth:user','namespace' => 'Article'], function () {
-    Route::resource('article', 'IndexController');
+    Route::resource('articles', 'IndexController');
     Route::get('archive', 'IndexController@archive')->name('archive');
     Route::patch('archive/{id}', 'IndexController@changeArchived')->name('changeArchived')->where('id','[0-9]+');
 });
