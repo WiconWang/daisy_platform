@@ -44,7 +44,11 @@ class IndexController extends Controller
      */
     public function index(Request $request)
     {
-        $this->channelService->getAll();
+        $data = $this->validate($request, [
+            'id' => 'integer|min:0',
+        ]);
+        $id = isset($data['id'])?$data['id']:0;
+        $this->responseJson('SUCCESS','',$this->channelService->getRows($id));
     }
 
     /**
@@ -91,7 +95,14 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'fid' => 'required|integer|min:0',
+            'title' => 'required|string',
+            'description' => 'string',
+            'status' => 'string',
+            'weight' => 'integer',
+        ]);
+        $this->responseJson('SUCCESS','', $this->channelService->createRow($data));
     }
 
     /**
@@ -122,7 +133,11 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        if ($row = $this->channelService->getRow($id)){
+            $this->responseJson('SUCCESS', '', $row);
+        }
+        $this->responseJson('RECORD_NOT_FOUND', '', $row);
+
     }
 
     /**
@@ -171,7 +186,16 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->validate($request, [
+            'fid' => 'integer|min:0',
+            'title' => 'string',
+            'description' => 'string',
+            'status' => 'string',
+            'weight' => 'integer',
+        ]);
+
+        $this->responseDefaultJson($this->channelService->editRow($data, $id));
+
     }
 
     /**
@@ -199,20 +223,9 @@ class IndexController extends Controller
      * @param $id
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-
-        $data = $this->validate($request, [
-            'status' => 'required|integer|min:0',
-        ]);
-
-        $record = ChannelModel::find($id);
-        if (!$record) {
-            $this->responseJson('RECORD_NOT_FOUND');
-        }
-
-        $record->status = $data['status'];
-        $this->responseDefaultJson($record->save());
+        $this->responseDefaultJson($this->channelService->deleteRow($id));
     }
 
 }

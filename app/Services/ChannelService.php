@@ -17,44 +17,85 @@ class ChannelService
 {
     use ResponseHelper;
 
-    public function getAll(){
-        $count = ChannelModel::count();
-        $list = ChannelModel::get();
-        if (empty($count)) return  $this->formatList($count, $list);
-
-        $res = $this->listToNest($list->toArray());
-        
-        echo "<pre>";
-        print_r($res);
-        exit;
-        return $res;
-    }
-
-    public function getList(Request $request){
-        $count = ChannelModel::count();
-        $list = ChannelModel::get();
-    }
-
-
-    private function listToNest($rows){
-        return $this->getTree($rows, 0);
-    }
-
-    private  function getTree($data, $pId)
+    /**
+     * 取列表
+     *
+     * @param int $fid
+     * @return array
+     */
+    public function getRows($fid = 0)
     {
-        $tree = '';
-        foreach($data as $k => $v)
-        {
-            if($v['fid'] == $pId)
-            {
-                $v['fid'] = $this->getTree($data, $v['fid']);
+        $count = ChannelModel::where('fid', $fid)->count();
+        $rows = ChannelModel::get();
+        $list = [];
+        if (!empty($count)) $list = $this->getTree($rows->toArray(), $fid);
+        return $this->formatList($count, $list);
+    }
+
+    /**
+     * 新建记录
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function createRow($data)
+    {
+        return ChannelModel::create($data);
+    }
+
+    /**
+     * 新建记录
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function editRow($data,$id)
+    {
+        return ChannelModel::where('id',$id)->update($data);
+    }
+
+    /**
+     * 按 ID 取记录
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function getRow($id)
+    {
+        return ChannelModel::find($id);;
+    }
+
+
+    /**
+     * 删除行
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function deleteRow($id)
+    {
+        $row = ChannelModel::find($id);
+        return $row->delete();
+    }
+
+    /**
+     * 无限分类拼合
+     *
+     * @param $data
+     * @param $fid
+     * @return array
+     */
+    private function getTree($data, $fid)
+    {
+        $tree = [];
+        foreach ($data as $k => $v) {
+            if ($v['fid'] == $fid) {
+                $v['children'] = $this->getTree($data, $v['id']);
                 $tree[] = $v;
-                //unset($data[$k]);
             }
         }
         return $tree;
     }
-
 
 
 }

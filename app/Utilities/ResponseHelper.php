@@ -89,7 +89,7 @@ trait ResponseHelper
     public function responseDefaultJson($bool)
     {
         header('Content-type:text/json');
-        $returnName = $bool?'SUCCESS':'ERROR';
+        $returnName = $bool ? 'SUCCESS' : 'ERROR';
         echo response()->json(
             $this->getStandardResult($returnName),
             200

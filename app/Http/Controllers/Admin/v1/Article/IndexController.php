@@ -49,10 +49,8 @@ class IndexController extends Controller
             'pagesize' => 'integer|min:1',
         ]);
 
-        list($skip, $take) = PageHelper::pageToSqlSkip(
-            (isset($data['page']) ? $data['page'] : 0),
-            (isset($data['pagesize']) ? $data['pagesize'] : 20)
-        );
+        list($skip, $take) =  PageHelper::getSqlSkipInArray($data);
+
 
         if (isset($data['cid']) &&!empty($data['cid'])){
             $count = ArticleModel::where('cid',$data['cid'])->count();

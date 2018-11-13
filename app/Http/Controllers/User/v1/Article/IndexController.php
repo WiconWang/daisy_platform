@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User\v1\Article;
 
 use App\Models\Articles\ArticleExtendModel;
-use App\Models\Users\InfoModel as UserInfoModel;
 use App\Utilities\PageHelper;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,9 +10,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Articles\ArticleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\ArticleService;
 
 class IndexController extends Controller
 {
+    protected $articleService;
+
+    public function __construct(ArticleService $articleService)
+    {
+        $this->articleService = $articleService;
+    }
+
     /**
      * @OA\Get(
      *   path="/article",
@@ -50,23 +57,13 @@ class IndexController extends Controller
             'pagesize' => 'integer|min:1',
         ]);
 
-        list($skip, $take) = PageHelper::pageToSqlSkip(
-            (isset($data['page']) ? $data['page'] : 0),
-            (isset($data['pagesize']) ? $data['pagesize'] : 20)
-        );
+        list($skip, $take) = PageHelper::getSqlSkipInArray($data);
 
+        $cid = (isset($data['cid']) && !empty($data['cid'])) ? $data['cid'] : 0;
 
-        if (isset($data['cid']) && !empty($data['cid'])) {
-            $where = ['author_id' => Auth::user()->id, 'cid' => $data['cid']];
-            $count = ArticleModel::where($where)->count();
-            $ArticleList = ArticleModel::where($where)->orderBy('id', 'desc')->skip($skip)->take($take)->get();
-        } else {
-            $where = ['author_id' => Auth::user()->id];
-            $count = ArticleModel::where($where)->count();
-            $ArticleList = ArticleModel::where($where)->skip($skip)->orderBy('id', 'desc')->take($take)->get();
-        }
+        $list = $this->articleService->getRows($cid, Auth::user()->id, $skip, $take);
 
-        $this->responseJson('SUCCESS', '', $this->formatList($count, $ArticleList));
+        $this->responseJson('SUCCESS', '', $list);
     }
 
     /**
@@ -136,8 +133,8 @@ class IndexController extends Controller
             if (!$article->id) throw new Exception('RECORD_INSERT_ERROR');
             $articleExtend = new ArticleExtendModel();
             $articleExtend->aid = $article->id;
-            $articleExtend->content =$data['content'];
-            $bool2=$articleExtend->save();
+            $articleExtend->content = $data['content'];
+            $bool2 = $articleExtend->save();
             if (!$bool2) throw new Exception('RECORD_INSERT_ERROR');
 
             DB::commit();
@@ -179,8 +176,8 @@ class IndexController extends Controller
         if ($res = ArticleModel::find($id)) {
             $res2 = ArticleExtendModel::where('aid', $id)->first();
             $res->content = $res2->content;
-            $this->responseJson('SUCCESS','',$res);
-        }else{
+            $this->responseJson('SUCCESS', '', $res);
+        } else {
             $this->responseJson('RECORD_NOT_FOUND');
         }
 
@@ -249,13 +246,13 @@ class IndexController extends Controller
 
             $res1 = $res2 = true;
             $saveData = $request->all();
-            if (!empty($saveData['content'])){
-                $res1=ArticleExtendModel::where('aid',$id)->update(array('content' =>$saveData['content']));
+            if (!empty($saveData['content'])) {
+                $res1 = ArticleExtendModel::where('aid', $id)->update(array('content' => $saveData['content']));
                 unset($saveData['content']);
             }
 
-            if (!empty($saveData)){
-                $res2=ArticleModel::where('id',$id)->update($saveData);
+            if (!empty($saveData)) {
+                $res2 = ArticleModel::where('id', $id)->update($saveData);
             }
 
             if (!$res1 || !$res2) throw new Exception('RECORD_UPDATE_ERROR');

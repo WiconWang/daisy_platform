@@ -45,10 +45,7 @@ class IndexController extends Controller
             'pagesize' => 'integer|min:1',
         ]);
 
-        list($skip, $take) = PageHelper::pageToSqlSkip(
-            (isset($data['page']) ? $data['page'] : 0),
-            (isset($data['pagesize']) ? $data['pagesize'] : 20)
-        );
+        list($skip, $take) =  PageHelper::getSqlSkipInArray($data);
 
         $count = UserInfoModel::count();
         $userList = UserInfoModel::orderBy('id', 'desc')->skip($skip)->take($take)->get();
@@ -294,13 +291,8 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-
         $user = UserInfoModel::find($id);
-        if ($user->delete()) {
-            $this->responseJson('SUCCESS');
-        } else {
-            $this->responseJson('ERROR');
-        }
+        $this->responseDefaultJson($user->delete());
 
     }
 

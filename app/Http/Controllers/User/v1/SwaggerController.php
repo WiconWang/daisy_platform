@@ -9,7 +9,7 @@
 
  *     @OA\Server(
  *         description="OpenApi host",
- *         url="http://www.daisy.com/user/v1"
+ *         url="http://api.daisy.hangyutech.com/user/v1"
  *     ),
  * )
  */
