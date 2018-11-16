@@ -97,4 +97,18 @@ trait ResponseHelper
         exit;
     }
 
+
+
+    /**
+     * 定义一个内部通行的结果数组，应对复杂情况
+     * 状态为1正常。0为故障
+     * @param int $status
+     * @param string $msg
+     * @param array $data
+     * @return array
+     */
+    public function returnArray($status = 1, $msg = '', $data = [])
+    {
+        return array($status, $msg, $data);
+    }
 }

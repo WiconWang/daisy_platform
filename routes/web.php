@@ -25,4 +25,4 @@ Route::group(["prefix" => 'docs'], function () {
 });
 
 
-Route::get('article/{type}.html', 'ArticleController@index');
+ 

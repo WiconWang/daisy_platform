@@ -22,9 +22,17 @@ Route::group(['middleware' => 'auth:admin','namespace' => 'Article'], function (
     Route::resource('articles', 'IndexController');
 });
 
-
-
 Route::group(['middleware' => 'auth:admin','namespace' => 'Channel'], function () {
     Route::resource('channels', 'IndexController');
 });
 
+
+Route::group(['middleware' => 'auth:admin','namespace' => 'component', "prefix" => 'component'], function () {
+    Route::resource('banners', 'BannerController');
+});
+
+
+Route::group(['middleware' => 'auth:admin','namespace' => 'Tools', "prefix" => 'upload'], function () {
+    Route::post('image', 'UploadController@uploadImage')->name('image');
+    Route::post('editorimage', 'UploadController@uploadEditorImage')->name('editorimage');
+});
