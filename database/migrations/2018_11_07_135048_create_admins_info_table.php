@@ -20,6 +20,7 @@ class CreateAdminsInfoTable extends Migration
             $table->string('mobile',14)->nullable(false)->default('')->unique()->comment('用户手机号');
             $table->string('email',100)->nullable(false)->default('')->comment('用户邮箱');
             $table->string('password')->nullable(false)->default('')->comment('登陆密码');
+            $table->string('cover')->nullable(false)->default('')->comment('封面头像');
             $table->tinyInteger('level')->unsigned()->nullable(false)->default(0)->comment('用户级别');
             $table->tinyInteger('status')->unsigned()->nullable(false)->default(0)->comment('用户状态 0正常 1禁用');
             $table->timestamp('out_date')->nullable(true)->comment('过期时间');

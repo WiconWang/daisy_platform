@@ -7,6 +7,7 @@ $factory->define(App\Models\Admins\InfoModel::class,function () use ($faker) {
         'password' => bcrypt(123456),
         'username' => $faker->name,
         'email' => $faker->email,
+        'cover' => $faker->imageUrl(),
         'level' => $faker->numberBetween($min = 0, $max = 5),
         'status' => $faker->numberBetween($min = 0, $max = 1),
         'out_date' => $faker->dateTime,
