@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User\v1\Login;
+namespace App\Http\Controllers\Member\v1\Login;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Users\InfoModel as UserInfoModel;
+use App\Models\Members\InfoModel as MemberInfoModel;
 
 class IndexController extends Controller
 {
@@ -40,7 +40,7 @@ class IndexController extends Controller
             'username' => 'required|min:2|max:20',
             'password' => 'required|min:2|max:20',
         ]);
-        $record = UserInfoModel::where(['mobile' => $data['username']])->first();
+        $record = MemberInfoModel::where(['mobile' => $data['username']])->first();
         if (empty($record)) {
             $this->responseJson('USER_NOT_EXIST');
         }
@@ -53,7 +53,7 @@ class IndexController extends Controller
             $this->responseJson('USER_DISABLED');
         }
 
-        $token = $record->createToken('User_Token');
+        $token = $record->createToken('Member_Token');
         $this->responseJson('SUCCESS', '', $token);
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\v1\Tools;
+namespace App\Http\Controllers\Member\v1\Tools;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -43,7 +43,7 @@ class UploadController extends Controller
             "errno"=> 0,
             "data"=> '',
         );
-        
+
         if (!empty($request->file())){
             $destinationPath = 'uploads';
             $list = array();

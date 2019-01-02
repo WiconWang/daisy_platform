@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin\v1\User;
 use App\Utilities\PageHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Users\InfoModel as UserInfoModel;
+use App\Models\Admins\InfoModel as AdminInfoModel;
 
-class IndexController extends Controller
+class AdminsController extends Controller
 {
 
     /**
      * @OA\Get(
-     *   path="/users/info",
-     *   tags={"用户"},
-     *   summary="用户清单",
+     *   path="/admins/info",
+     *   tags={"管理员"},
+     *   summary="管理员清单",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
      *   @OA\Parameter(name="page",in="query",required=false,description="页码",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
      *   @OA\Parameter(name="pagesize",in="query",required=false,description="每页条数",@OA\Schema(type="integer",format="int64",default="20",minimum=0)),
@@ -47,8 +47,8 @@ class IndexController extends Controller
 
         list($skip, $take) =  PageHelper::getSqlSkipInArray($data);
 
-        $count = UserInfoModel::count();
-        $userList = UserInfoModel::orderBy('id', 'desc')->skip($skip)->take($take)->get();
+        $count = AdminInfoModel::count();
+        $userList = AdminInfoModel::orderBy('id', 'desc')->skip($skip)->take($take)->get();
 
         $this->responseJson('SUCCESS', '', $this->formatList($count, $userList));
     }
@@ -66,13 +66,13 @@ class IndexController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/users/info",
-     *   tags={"用户"},
-     *   summary="添加新用户",
+     *   path="/admins/info",
+     *   tags={"管理员"},
+     *   summary="添加新管理员",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
-     *   @OA\Parameter(name="mobile",in="query",required=false,description="用户手机号",@OA\Schema(type="integer",format="int64",default="13100000000",minimum=0)),
-     *   @OA\Parameter(name="password",in="query",required=false,description="用户登陆密码",@OA\Schema(type="string")),
-     *   @OA\Parameter(name="level",in="query",required=false,description="用户级别",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
+     *   @OA\Parameter(name="mobile",in="query",required=false,description="管理员手机号",@OA\Schema(type="integer",format="int64",default="13100000000",minimum=0)),
+     *   @OA\Parameter(name="password",in="query",required=false,description="管理员登陆密码",@OA\Schema(type="string")),
+     *   @OA\Parameter(name="level",in="query",required=false,description="管理员级别",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
      *   @OA\Parameter(name="email",in="query",required=false,description="邮箱",@OA\Schema(type="string")),
      *   @OA\Parameter(name="out_date",in="query",required=false,description="过期日期",@OA\Schema(type="string")),
      *
@@ -101,28 +101,30 @@ class IndexController extends Controller
             'level' => 'required|integer',
             'username' => 'required|string',
             'password' => 'string',
+            'cover' => 'string',
             'email' => 'string',
             'out_date' => 'string',
         ]);
-        $user = new UserInfoModel();
+        $user = new AdminInfoModel();
         if (isset($data['password']) && !empty($data['password'])) {
             $user->password = bcrypt($data['password']);
         } else {
             $this->responseJson('FORM_LACK');
         }
         //检测手机号是否重复
-        $counts = UserInfoModel::where('mobile', $data['mobile'])->count();
+        $counts = AdminInfoModel::where('mobile', $data['mobile'])->count();
         if ($counts) {
             $this->responseJson('USER_MOBILE_IS_EXIST');
         }
-        //检测用户名是否重复
-        $counts = UserInfoModel::where('username', $data['username'])->count();
+        //检测管理员名是否重复
+        $counts = AdminInfoModel::where('username', $data['username'])->count();
         if ($counts) {
             $this->responseJson('USER_NAME_IS_EXIST');
         }
 
         $user->mobile = $data['mobile'];
         $user->level = $data['level'];
+        $user->cover = $data['cover'];
         $user->email = isset($data['email']) ? $data['email'] : '';
         $user->username = isset($data['username']) ? $data['username'] : '';
         if (isset($data['out_date']) && !empty($data['out_date'])) {
@@ -139,9 +141,9 @@ class IndexController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/users/info/{id}",
-     *   tags={"用户"},
-     *   summary="取用户信息",
+     *   path="/admins/info/{id}",
+     *   tags={"管理员"},
+     *   summary="取管理员信息",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
      *
      *   @OA\Response(
@@ -163,7 +165,7 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        $user = UserInfoModel::find($id);
+        $user = AdminInfoModel::find($id);
         unset($user->password);
 
         $this->responseJson('SUCCESS', '', $user);
@@ -183,13 +185,13 @@ class IndexController extends Controller
 
     /**
      * @OA\Put(
-     *   path="/users/info/{id}",
-     *   tags={"用户"},
-     *   summary="修改描写用户",
+     *   path="/admins/info/{id}",
+     *   tags={"管理员"},
+     *   summary="修改描写管理员",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
-     *   @OA\Parameter(name="mobile",in="query",required=false,description="用户手机号",@OA\Schema(type="integer",format="int64",default="13100000000",minimum=0)),
-     *   @OA\Parameter(name="password",in="query",required=false,description="用户登陆密码",@OA\Schema(type="string")),
-     *   @OA\Parameter(name="level",in="query",required=false,description="用户级别",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
+     *   @OA\Parameter(name="mobile",in="query",required=false,description="管理员手机号",@OA\Schema(type="integer",format="int64",default="13100000000",minimum=0)),
+     *   @OA\Parameter(name="password",in="query",required=false,description="管理员登陆密码",@OA\Schema(type="string")),
+     *   @OA\Parameter(name="level",in="query",required=false,description="管理员级别",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
      *   @OA\Parameter(name="email",in="query",required=false,description="邮箱",@OA\Schema(type="string")),
      *   @OA\Parameter(name="out_date",in="query",required=false,description="过期日期",@OA\Schema(type="string")),
      *
@@ -221,17 +223,18 @@ class IndexController extends Controller
             'level' => 'required|integer',
             'password' => 'string',
             'email' => 'string',
+            'cover' => 'string',
             'out_date' => 'string',
             'username' => 'string',
         ]);
-        $user = UserInfoModel::find($id);
+        $user = AdminInfoModel::find($id);
         if (isset($data['password']) && !empty($data['password'])) {
             $user->password = bcrypt($data['password']);
         }
         //修改时，帐号验证
         if ($user->mobile != $data['mobile']) {
             //检测手机号是否重复
-            $counts = UserInfoModel::where('mobile', $data['mobile'])->count();
+            $counts = AdminInfoModel::where('mobile', $data['mobile'])->count();
             if ($counts) {
                 $this->responseJson('USER_MOBILE_IS_EXIST');
             }
@@ -240,8 +243,8 @@ class IndexController extends Controller
 
         //修改时，帐号验证
         if ($user->username != $data['username']) {
-            //检测用户名是否重复
-            $counts = UserInfoModel::where('username', $data['username'])->count();
+            //检测管理员名是否重复
+            $counts = AdminInfoModel::where('username', $data['username'])->count();
             if ($counts) {
                 $this->responseJson('USER_NAME_IS_EXIST');
             }
@@ -249,6 +252,7 @@ class IndexController extends Controller
 
         $user->mobile = $data['mobile'];
         $user->level = $data['level'];
+        $user->cover = $data['cover'];
         $user->email = isset($data['email']) ? $data['email'] : '';
         $user->username = isset($data['username']) ? $data['username'] : '';
         if (isset($data['out_date']) && !empty($data['out_date'])) {
@@ -266,9 +270,9 @@ class IndexController extends Controller
     /**
      *
      * @OA\Delete(
-     *   path="/users/info/{id}",
-     *   tags={"用户"},
-     *   summary="删除用户",
+     *   path="/admins/info/{id}",
+     *   tags={"管理员"},
+     *   summary="删除管理员",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
      *   @OA\Response(
      *     response=200,
@@ -291,7 +295,7 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-        $user = UserInfoModel::find($id);
+        $user = AdminInfoModel::find($id);
         $this->responseDefaultJson($user->delete());
 
     }
@@ -300,9 +304,9 @@ class IndexController extends Controller
     /**
      *
      * @OA\Patch(
-     *   path="/users/info/{id}",
-     *   tags={"用户"},
-     *   summary="更新用户状态",
+     *   path="/admins/info/{id}",
+     *   tags={"管理员"},
+     *   summary="更新管理员状态",
      *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
      *   @OA\Parameter(name="status",in="query",required=false,description="状态",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
      *   @OA\Response(
@@ -331,7 +335,7 @@ class IndexController extends Controller
             'status' => 'required|integer|min:0',
         ]);
 
-        $record = UserInfoModel::find($id);
+        $record = AdminInfoModel::find($id);
         if (!$record) {
             $this->responseJson('RECORD_NOT_FOUND');
         }

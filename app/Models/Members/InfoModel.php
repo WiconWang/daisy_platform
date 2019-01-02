@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Users;
+namespace App\Models\Members;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +11,6 @@ class InfoModel extends Authenticatable
     use Notifiable, HasMultiAuthApiTokens;
 
 //    protected $connection = 'mysql_admin';
-    protected $table = 'users_info';
+    protected $table = 'members_info';
     public $timestamps = false;
 }

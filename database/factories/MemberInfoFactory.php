@@ -1,7 +1,7 @@
 <?php
 $faker = Faker\Factory::create('zh_CN');
 
-$factory->define(App\Models\Users\InfoModel::class, function () use ($faker) {
+$factory->define(App\Models\Members\InfoModel::class, function () use ($faker) {
 //$factory->define(App\Models\User\InfoModel::class, function () {
 //    $faker = \Faker\Factory::create('zh_CN');
     return [
@@ -9,6 +9,7 @@ $factory->define(App\Models\Users\InfoModel::class, function () use ($faker) {
         'password' => bcrypt(123456),
         'username' => $faker->name,
         'email' => $faker->email,
+        'cover' => $faker->imageUrl(),
         'level' => $faker->numberBetween($min = 0, $max = 5),
         'status' => $faker->numberBetween($min = 0, $max = 1),
         'out_date' => $faker->dateTime,

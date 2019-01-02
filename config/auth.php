@@ -85,7 +85,7 @@ return [
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Users\InfoModel::class,
+            'model' => App\Models\Members\InfoModel::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

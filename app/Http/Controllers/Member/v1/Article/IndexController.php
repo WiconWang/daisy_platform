@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\v1\Article;
+namespace App\Http\Controllers\Member\v1\Article;
 
 use App\Models\Articles\ArticleExtendModel;
 use App\Utilities\PageHelper;

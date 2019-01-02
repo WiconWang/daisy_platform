@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersInfoTable extends Migration
+class CreateMembersInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,14 @@ class CreateUsersInfoTable extends Migration
      */
     public function up()
     {
-        $tableName = 'users_info';
+        $tableName = 'members_info';
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',22)->nullable(false)->default('')->unique()->comment('用户手机号');
             $table->string('mobile',14)->nullable(false)->default('')->unique()->comment('用户手机号');
             $table->string('email',100)->nullable(false)->default('')->comment('用户邮箱');
             $table->string('password')->nullable(false)->default('')->comment('登陆密码');
+            $table->string('cover')->nullable(false)->default('')->comment('封面头像');
             $table->tinyInteger('level')->unsigned()->nullable(false)->default(0)->comment('用户级别');
             $table->tinyInteger('status')->unsigned()->nullable(false)->default(0)->comment('用户状态 0正常 1禁用');
             $table->timestamp('out_date')->nullable(true)->comment('过期时间');
@@ -38,6 +39,6 @@ class CreateUsersInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_info');
+        Schema::dropIfExists('members_info');
     }
 }

@@ -5,11 +5,11 @@
  * @copyright  2018/10/24 11:18 AM
  */
 
-namespace App\Http\Controllers\User\v1\Login;
+namespace App\Http\Controllers\Member\v1\Login;
 
 
 
-use App\Http\Controllers\User\v1\BaseController;
+use App\Http\Controllers\Member\v1\BaseController;
  use Illuminate\Support\Facades\Auth;
 
 class InfoController extends BaseController
@@ -31,7 +31,7 @@ class InfoController extends BaseController
     public function index()
     {
         $user = Auth::user();
-        $user->avator ="https://img.t.sinajs.cn/t6/style/images/global_nav/WB_logo.png";
+        $user->avator =$user->cover;
         $user->access ="user";
         unset($user->password);
         $this->responseJson('SUCCESS', '', $user);

@@ -31,7 +31,7 @@ class InfoController extends BaseController
     public function index()
     {
         $user = Auth::user();
-        $user->avator ="https://img.t.sinajs.cn/t6/style/images/global_nav/WB_logo.png";
+        $user->avator =$user->cover;
         $user->access ="admin";
         unset($user->password);
         $this->responseJson('SUCCESS', '', $user);

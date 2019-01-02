@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Users\InfoModel as Models;
+use App\Models\Members\InfoModel as Models;
 
-class UserInfoSeeder extends Seeder
+class MemberInfoSeeder extends Seeder
 {
     /**
      * Run the database seeds.

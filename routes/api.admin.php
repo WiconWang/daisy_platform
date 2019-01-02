@@ -12,10 +12,11 @@ Route::group(['middleware' => 'auth:admin','namespace' => 'Login'], function () 
 });
 
 
-
 Route::group(['middleware' => 'auth:admin','namespace' => 'User', "prefix" => 'users'], function () {
-    Route::resource('info', 'IndexController');
-    Route::patch('status/{id}', 'IndexController@status')->name('status')->where('id','[0-9]+');
+    Route::resource('members', 'MembersController');
+    Route::resource('admins', 'AdminsController');
+    Route::patch('status/members/{id}', 'MembersController@status')->name('status')->where('id','[0-9]+');
+    Route::patch('status/admins/{id}', 'AdminsController@status')->name('status')->where('id','[0-9]+');
 });
 
 Route::group(['middleware' => 'auth:admin','namespace' => 'Article'], function () {

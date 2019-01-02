@@ -14,7 +14,7 @@
  * )
  */
 
-namespace App\Http\Controllers\User\v1;
+namespace App\Http\Controllers\Member\v1;
 
 use App\Http\Controllers\Controller;
 
@@ -22,7 +22,7 @@ class SwaggerController extends Controller
 {
     public function getjson()
     {
-        $swagger = \OpenApi\scan(app_path('Http/Controllers/User/v1'));
+        $swagger = \OpenApi\scan(app_path('Http/Controllers/Member/v1'));
         return response()->json($swagger,200);
 
     }

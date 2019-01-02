@@ -53,7 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://api.daisy.hangyutech.com'),
-    'allow_module' => env('ALLOW_MODULE', 'admin,user'),
+    'allow_module' => env('ALLOW_MODULE', 'admin,member'),
 
     /*
     |--------------------------------------------------------------------------
