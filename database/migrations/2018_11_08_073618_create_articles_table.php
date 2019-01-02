@@ -23,6 +23,8 @@ class CreateArticlesTable extends Migration
             $table->string('short_title',40)->nullable(false)->default('')->comment('短摘要');
             $table->string('description',250)->nullable(false)->default('')->comment('摘要');
             $table->string('keyword',100)->nullable(false)->default('')->comment('关键词');
+            $table->string('cover')->nullable(false)->default('')->comment('封面图');
+            $table->string('thumbnail')->nullable(false)->default('')->comment('缩略图');
             $table->Integer('author_id')->unsigned()->nullable(false)->default(0)->comment('作者ID');
             $table->string('author_name',100)->nullable(false)->default('')->comment('作者姓名');
             $table->tinyInteger('author_site')->unsigned()->nullable(false)->default(0)->comment('作者渠道 0默认前台 1默认后台对应管理员');

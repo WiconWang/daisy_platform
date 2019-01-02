@@ -111,4 +111,22 @@ trait ResponseHelper
     {
         return array($status, $msg, $data);
     }
+
+
+    /**
+     * 把 NULL 转换成空值，以防 SQL 出错
+     * @param $data
+     * @return mixed
+     */
+    public function transNullToEmpty($data)
+    {
+        foreach ($data as $k => $v) {
+            if ($v === null){
+                $data[$k] = '';
+            }
+        }
+
+        return $data;
+
+    }
 }

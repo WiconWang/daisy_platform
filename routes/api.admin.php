@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:admin','namespace' => 'User', "prefix" => 'u
 
 Route::group(['middleware' => 'auth:admin','namespace' => 'Article'], function () {
     Route::resource('articles', 'IndexController');
+    Route::patch('status/articles/{id}', 'IndexController@status')->name('status')->where('id','[0-9]+');
 });
 
 Route::group(['middleware' => 'auth:admin','namespace' => 'Channel'], function () {

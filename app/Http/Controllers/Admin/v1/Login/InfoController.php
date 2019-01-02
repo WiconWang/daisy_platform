@@ -10,7 +10,9 @@ namespace App\Http\Controllers\Admin\v1\Login;
 
 
 use App\Http\Controllers\Admin\v1\BaseController;
- use Illuminate\Support\Facades\Auth;
+use App\Services\MemberService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class InfoController extends BaseController
 {
@@ -37,6 +39,40 @@ class InfoController extends BaseController
         $this->responseJson('SUCCESS', '', $user);
     }
 
+
+    /**
+     * @OA\Put(
+     *   path="/info",
+     *   tags={"登陆"},
+     *   summary="修改自己的资料",
+     *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
+     *
+     *   @OA\Response(
+     *    response=200,
+     *    description="正确",
+     *  )
+     * )
+     * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function info(Request $request)
+    {
+        $data = $this->validate($request, [
+            'id' => 'integer|min:0',
+            'mobile' => 'integer|min:10',
+            'password' => 'string|nullable',
+            'email' => 'string|nullable',
+            'cover' => 'string|nullable',
+            'username' => 'string|nullable',
+        ]);
+
+        list($code,$msg,$data) = (new MemberService())->editRow($this->transNullToEmpty($data),Auth::user()->id);
+        if ($code == 1 ){
+            $this->responseJson('SUCCESS', '');
+        }else{
+            $this->responseJson($msg);
+        }
+    }
 
     /**
      * @OA\Get(

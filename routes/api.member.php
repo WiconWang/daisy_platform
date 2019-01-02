@@ -14,10 +14,12 @@ Route::group(['middleware' => 'auth:user','namespace' => 'Login'], function () {
 
 Route::group(['middleware' => 'auth:user','namespace' => 'Article'], function () {
     Route::resource('articles', 'IndexController');
-    Route::get('archive', 'IndexController@archive')->name('archive');
-    Route::patch('archive/{id}', 'IndexController@changeArchived')->name('changeArchived')->where('id','[0-9]+');
+    Route::patch('status/articles/{id}', 'IndexController@status')->name('status')->where('id','[0-9]+');
 });
 
 Route::group(['middleware' => 'auth:user','namespace' => 'Tools', "prefix" => 'upload'], function () {
     Route::post('image', 'UploadController@uploadImage')->name('image');
+});
+Route::group(['middleware' => 'auth:user','namespace' => 'Channel'], function () {
+    Route::resource('channels', 'IndexController');
 });

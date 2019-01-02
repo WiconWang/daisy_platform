@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\v1\User;
 
+use App\Services\MemberService;
 use App\Utilities\PageHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,12 @@ use App\Models\Members\InfoModel as MemberInfoModel;
 
 class MembersController extends Controller
 {
+    protected $memberService;
 
+    public function __construct(MemberService $memberService)
+    {
+        $this->memberService = $memberService;
+    }
     /**
      * @OA\Get(
      *   path="/members/info",
@@ -100,41 +106,16 @@ class MembersController extends Controller
             'mobile' => 'required|integer|min:10',
             'level' => 'required|integer',
             'username' => 'required|string',
-            'password' => 'string',
-            'cover' => 'string',
-            'email' => 'string',
-            'out_date' => 'string',
+            'password' => 'string|nullable',
+            'cover' => 'string|nullable',
+            'email' => 'string|nullable',
+            'out_date' => 'string|nullable',
         ]);
-        $user = new MemberInfoModel();
-        if (isset($data['password']) && !empty($data['password'])) {
-            $user->password = bcrypt($data['password']);
-        } else {
-            $this->responseJson('FORM_LACK');
-        }
-        //检测手机号是否重复
-        $counts = MemberInfoModel::where('mobile', $data['mobile'])->count();
-        if ($counts) {
-            $this->responseJson('USER_MOBILE_IS_EXIST');
-        }
-        //检测用户名是否重复
-        $counts = MemberInfoModel::where('username', $data['username'])->count();
-        if ($counts) {
-            $this->responseJson('USER_NAME_IS_EXIST');
-        }
-
-        $user->mobile = $data['mobile'];
-        $user->level = $data['level'];
-        $user->cover = $data['cover'];
-        $user->email = isset($data['email']) ? $data['email'] : '';
-        $user->username = isset($data['username']) ? $data['username'] : '';
-        if (isset($data['out_date']) && !empty($data['out_date'])) {
-            $user->out_date = date('Y-m-d', strtotime($data['out_date']));
-        }
-
-        if ($user->save()) {
-            $this->responseJson('SUCCESS');
-        } else {
-            $this->responseJson('ERROR');
+        list($code,$msg,$data) = $this->memberService->createRow($this->transNullToEmpty($data));
+        if ($code == 1 ){
+            $this->responseJson('SUCCESS', '');
+        }else{
+            $this->responseJson('ERROR', $msg);
         }
     }
 
@@ -221,48 +202,18 @@ class MembersController extends Controller
             'id' => 'integer|min:0',
             'mobile' => 'required|integer|min:10',
             'level' => 'required|integer',
-            'password' => 'string',
-            'email' => 'string',
-            'cover' => 'string',
-            'out_date' => 'string',
-            'username' => 'string',
+            'password' => 'string|nullable',
+            'email' => 'string|nullable',
+            'cover' => 'string|nullable',
+            'out_date' => 'string|nullable',
+            'username' => 'string|nullable',
         ]);
-        $user = MemberInfoModel::find($id);
-        if (isset($data['password']) && !empty($data['password'])) {
-            $user->password = bcrypt($data['password']);
-        }
-        //修改时，帐号验证
-        if ($user->mobile != $data['mobile']) {
-            //检测手机号是否重复
-            $counts = MemberInfoModel::where('mobile', $data['mobile'])->count();
-            if ($counts) {
-                $this->responseJson('USER_MOBILE_IS_EXIST');
-            }
-        }
 
-
-        //修改时，帐号验证
-        if ($user->username != $data['username']) {
-            //检测用户名是否重复
-            $counts = MemberInfoModel::where('username', $data['username'])->count();
-            if ($counts) {
-                $this->responseJson('USER_NAME_IS_EXIST');
-            }
-        }
-
-        $user->mobile = $data['mobile'];
-        $user->level = $data['level'];
-        $user->cover = $data['cover'];
-        $user->email = isset($data['email']) ? $data['email'] : '';
-        $user->username = isset($data['username']) ? $data['username'] : '';
-        if (isset($data['out_date']) && !empty($data['out_date'])) {
-            $user->out_date = date('Y-m-d', strtotime($data['out_date']));
-        }
-
-        if ($user->save()) {
-            $this->responseJson('SUCCESS');
-        } else {
-            $this->responseJson('ERROR');
+        list($code,$msg,$data) = $this->memberService->editRow($this->transNullToEmpty($data),$id);
+        if ($code == 1 ){
+            $this->responseJson('SUCCESS', '');
+        }else{
+            $this->responseJson($msg);
         }
     }
 

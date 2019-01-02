@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleModel extends Model
 {
     protected $table = 'articles';
-    protected $fillable = ['cid', 'status', 'flag', 'title', 'short_title', 'description', 'keyword', 'author_id', 'author_name', 'author_site', 'weight'];
+    protected $fillable = ['cid', 'status', 'flag', 'title', 'short_title', 'description', 'keyword',  'cover', 'thumbnail', 'author_id', 'author_name', 'author_site', 'weight'];
 
 
     public function content()

@@ -116,6 +116,8 @@ class IndexController extends Controller
         $data = $this->validate($request, [
             'cid' => 'required|integer|min:1',
             'title' => 'required|string',
+            'cover' => 'required|string',
+            'thumbnail' => 'required|string',
             'content' => 'required|string',
             'status' => 'integer|min:0',
             'weight' => 'integer|min:0',
@@ -321,6 +323,51 @@ class IndexController extends Controller
 
 
     }
+
+
+    /**
+     *
+     * @OA\Patch(
+     *   path="/status/articles/{id}",
+     *   tags={"文章"},
+     *   summary="更新文章状态",
+     *   @OA\Parameter(name="Authorization",in="header",description="Bearer TOKEN",required=true,@OA\Schema(type="string")),
+     *   @OA\Parameter(name="status",in="query",required=false,description="状态",@OA\Schema(type="integer",format="int64",default="0",minimum=0)),
+     *   @OA\Response(
+     *     response=200,
+     *     description="返回 TOKEN需要在其它接口带回",
+     *     @OA\JsonContent(
+     *       @OA\Property(type="integer",property="code",example="1000",description="返回码"),
+     *       @OA\Property(property="message",type="string",description="返回信息"),
+     *       @OA\Property(property="data",type="array",description="信息数组",
+     *         @OA\Items(
+     *         type="object", @OA\Property(property="param1", type="string",example="详细参数，这里省略请调试真实数据"),
+     *         ),
+     *       ),
+     *
+     *     ),
+     *   )
+     * )
+     * @param Request $request
+     * @param $id
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function status(Request $request, $id)
+    {
+
+        $data = $this->validate($request, [
+            'status' => 'required|integer|min:0',
+        ]);
+
+        $record = ArticleModel::find($id);
+        if (!$record) {
+            $this->responseJson('RECORD_NOT_FOUND');
+        }
+
+        $record->status = $data['status'];
+        $this->responseDefaultJson($record->save());
+    }
+
 
 }
 

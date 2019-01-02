@@ -158,7 +158,7 @@ class UploadController extends Controller
      * 显示缩略图
      * 比如要显示名为20180706_212342_111.jpg图片的缩略图，要求是宽300，高250，水印wms.png
      * 可以按以下方式请求：
-     * http://api.hiso.net.cn/user/v1/picture/show/thumb/20180317_233342_112_300_250_wms.jpg
+     * http://api.net.cn/user/v1/picture/show/thumb/20180317_233342_112_300_250_wms.jpg
      * 缩略图的格式为   年月日_时分秒_随机数_宽度_高度_水印名.扩展名
      * 文件存在直接回显，不存在会生成
      * @param $filename
@@ -177,7 +177,7 @@ class UploadController extends Controller
      * 显示带水印的原图
      * 比如要显示名为 20180706_212342_111.jpg 图片的原图
      * 可以按以下方式请求：
-     * http://api.hiso.net.cn/user/v1/picture/show/thumb/20180317_233342_112.jpg
+     * http://api.net.cn/user/v1/picture/show/thumb/20180317_233342_112.jpg
      * 文件存在直接回显，不存在会生成，，默认为水印wms.png
      * @param $filename
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
