@@ -14,13 +14,16 @@
 2. 使用命令 composer install 来安装依赖组件。
 3. 开发环境，将.env.example复制为.env，并配置内容。   
 注：需要开放哪些模块，请在ALLOW_MODULE项中启用，逗号分隔。  
-4. 请把storage的目录权限改为可写，如需要上传则/public/uploads也需要权限。  
+4. 请把storage的目录权限改为可写。 
+> chmod -R 777 ./storage
 5. nginx的根目录指向到项目的public下，并添加配置 
 ```
 location / {
  try_files $uri $uri/ /index.php?$query_string;
 }
-```
+``` 
+6. 挂载上传目录   
+> php artisan storage:link
 6. 生成APP_KEY: 
 > php artisan key:generate 
 7. 迁移默认表:  
