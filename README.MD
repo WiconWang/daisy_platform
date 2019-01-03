@@ -2,7 +2,7 @@
 
 ## 依赖组件: 
 - PHP 7.1.23 (不低于7.1.3)
-- Mysql 5.6或 5.7
+- Mysql 5.7
 - Nginx
 - Redis
 - php composer
@@ -22,16 +22,20 @@ location / {
  try_files $uri $uri/ /index.php?$query_string;
 }
 ``` 
-6. 挂载上传目录   
+6. php.ini 中需要在 disable_functions  中删除  symlink、proc_open   
+7. 挂载上传目录   
 > php artisan storage:link
-6. 生成APP_KEY: 
+8. 生成APP_KEY: 
 > php artisan key:generate 
-7. 迁移默认表:  
+9. 迁移默认表:  
 > php artisan migrate 
-8. 安装PassPort:  
+10. 安装PassPort:  
 > php artisan passport:install
-9. 如需要表填充，依次调用不同的填充:   
-> php artisan db:seed --class=***Seeder
+11. 如需要，可调用表填充:   
+> 全部数据：   
+> php artisan db:seed    
+> 部分数据：    
+> php artisan db:seed --class=***Seeder    
 
 如果填充出现问题，可用composer dump-autoload 重置
 
