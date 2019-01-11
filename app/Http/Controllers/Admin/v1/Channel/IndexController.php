@@ -96,12 +96,15 @@ class IndexController extends Controller
     {
         $data = $this->validate($request, [
             'fid' => 'required|integer|min:0',
-            'title' => 'required|string',
-            'description' => 'string',
-            'status' => 'string',
-            'weight' => 'integer',
+            'title' => 'required|string|nullable',
+            'description' => 'string|nullable',
+            'link' => 'string|nullable',
+            'position' => 'array',
+            'cover' => 'string|nullable',
+            'status' => 'integer|min:0',
+            'weight' => 'integer|min:0',
         ]);
-        $this->responseJson('SUCCESS','', $this->channelService->createRow($data));
+        $this->responseJson('SUCCESS','', $this->channelService->createRow($this->transNullToEmpty($data)));
     }
 
     /**
@@ -187,13 +190,16 @@ class IndexController extends Controller
     {
         $data = $this->validate($request, [
             'fid' => 'integer|min:0',
-            'title' => 'string',
-            'description' => 'string',
-            'status' => 'string',
-            'weight' => 'integer',
+            'title' => 'string|nullable',
+            'description' => 'string|nullable',
+            'link' => 'string|nullable',
+            'position' => 'array',
+            'cover' => 'string|nullable',
+            'status' => 'integer|nullable',
+            'weight' => 'integer|min:0',
         ]);
 
-        $this->responseDefaultJson($this->channelService->editRow($data, $id));
+        $this->responseDefaultJson($this->channelService->editRow($this->transNullToEmpty($data), $id));
 
     }
 
@@ -224,7 +230,11 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-        $this->responseDefaultJson($this->channelService->deleteRow($id));
+        $result = $this->channelService->deleteRow($id);
+        if ($result === 'has_children') {
+            $this->responseJson('CHANNEL_HAS_CHILDREN');
+        }
+        $this->responseDefaultJson($result);
     }
 
 }

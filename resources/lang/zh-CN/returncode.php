@@ -82,4 +82,7 @@ return [
     "INVITE_CODE_LESS_THAN_USER" => "开通码等级比用户等级低",
     "AGENT_NOT_OWN_THIS_CUSTOMER" =>  "代理商名下没有此用户",
 
+
+    "CHANNEL_HAS_CHILDREN" =>  "此栏目下有子栏目",
+
 ];

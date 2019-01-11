@@ -81,4 +81,6 @@ return [
     2310 => "INVITE_CODE_HAS_USED",    // 邀请码已使用
     2311 => "INVITE_CODE_NOT_FOUND",    // 未找到此邀请码
     2312 => "INVITE_CODE_LESS_THAN_USER",    // 未找到此邀请码
+
+    2322 => "CHANNEL_HAS_CHILDREN", //此栏目下有子栏目"
 ];

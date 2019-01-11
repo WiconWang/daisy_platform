@@ -40,6 +40,7 @@ class ChannelService
      */
     public function createRow($data)
     {
+        if (isset($data['position'])) { $data['position'] = implode(',',$data['position']);}
         return ChannelModel::create($data);
     }
 
@@ -51,6 +52,7 @@ class ChannelService
      */
     public function editRow($data,$id)
     {
+        if (isset($data['position'])) { $data['position'] = implode(',',$data['position']);}
         return ChannelModel::where('id',$id)->update($data);
     }
 
@@ -74,6 +76,9 @@ class ChannelService
      */
     public function deleteRow($id)
     {
+        // 删除时检测是否有下层栏目，如有则禁止删除
+        $hasChildren = ChannelModel::where('fid', $id)->count();
+        if (!empty($hasChildren)) return 'has_children';
         $row = ChannelModel::find($id);
         return $row->delete();
     }

@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminInfoSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(ChannelSeeder::class);
+        $this->call(MessageSeeder::class);
     }
 }
