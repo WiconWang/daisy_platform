@@ -23,3 +23,13 @@ Route::group(['middleware' => 'auth:user','namespace' => 'Tools', "prefix" => 'u
 Route::group(['middleware' => 'auth:user','namespace' => 'Channel'], function () {
     Route::resource('channels', 'IndexController');
 });
+
+
+Route::group(['middleware' => 'auth:user','namespace' => 'User', "prefix" => 'message'], function () {
+    Route::get('count', 'MessageController@count')->name('count');
+    Route::get('index', 'MessageController@index')->name('index');
+    Route::get('content', 'MessageController@content')->name('content');
+    Route::patch('reading', 'MessageController@reading')->name('reading');
+    Route::patch('remove', 'MessageController@remove')->name('remove');
+    Route::patch('restore', 'MessageController@restore')->name('restore');
+});
