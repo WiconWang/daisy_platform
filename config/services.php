@@ -39,5 +39,14 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'idm' => [
+        'url' => env('IDM_SERVICE_URL'),
+        'appid' => env('IDM_SERVICE_APPID'),
+        'appsecret' => env('IDM_SERVICE_APPSECRET')
+    ],
+    'weixin' => [
+        'appid' => env('WX_APP_ID'),
+        'appsecret' => env('WX_APP_SECRET')
+    ]
 
 ];

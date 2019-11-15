@@ -66,11 +66,21 @@ class Handler extends ExceptionHandler
                 list ($returnName, $returnInfo) = $this->transStatusCodeToReturnCode($error->getStatusCode());
                 $returnData = [];
                 if (config('app.debug')) {
+
                     if (!empty($exception->getMessage())) $returnInfo = $exception->getMessage();
                     //特别处理一个验证的信息
-                    if ($returnInfo == 'The given data was invalid.'){
+
+                    // 兼容验证插件
+                    if ($returnInfo == 'The given data was invalid.') {
                         $returnName = 'PARAM_LACK';
-                        $returnInfo='';
+                        $message = $exception->errors();
+                        $returnInfo = reset($message)[0];
+                    }
+
+                    // 兼容用户登陆插件
+                    if ($returnInfo == 'Unauthenticated') {
+                        $returnName = 'TOKEN_LOST';
+                        $returnInfo = '';
                     }
 
                     if ($error->getStatusCode() >= 500) {

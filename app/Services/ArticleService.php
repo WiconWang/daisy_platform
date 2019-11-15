@@ -37,6 +37,17 @@ class ArticleService
         return $this->formatList($count, $rows);
     }
 
+    public function searchRows($where = [], $skip = 0, $take = 0, $order = [])
+    {
+        $count = ArticleModel::where($where)->count();
+        if (empty($order)) {
+            $rows = ArticleModel::where($where)->orderBy('id', 'desc')->skip($skip)->take($take)->get();
+        }else{
+            $rows = ArticleModel::where($where)->orderBy($order[0], $order[1])->skip($skip)->take($take)->get();
+        }
+        return $this->formatList($count, $rows);
+    }
+    
     /**
      * 新建记录
      *

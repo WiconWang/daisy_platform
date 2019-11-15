@@ -63,6 +63,18 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+        'oss' => [
+            'region' => env('OSS_REGION'),
+            'endpoint' => env('OSS_ENDPOINT'),
+            'accessKeyId' => env('OSS_KEY_ID'),
+            'accessKeySecret' => env('OSS_KEY_SECRET'),
+            'bucket' => env('OSS_BUCKET'),
+            'mts_pipelineId' => env('MTS_PIPELINE_ID'),
+            'mts_endpoint' => env('MTS_ENDPOINT'),
+            'mts_location' => env('MTS_LOCATION'),
+            'mts_templateSD' => env('MTS_TEMPLATE_SD'),
+            'mts_templateLD' => env('MTS_TEMPLATE_LD')
+        ]
 
     ],
 
